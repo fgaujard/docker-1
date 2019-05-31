@@ -1,0 +1,4 @@
+#import
+docker-machine env Char
+#asset
+eval $(docker-machine env Char)
