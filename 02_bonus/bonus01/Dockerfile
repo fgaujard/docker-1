@@ -1,10 +1,10 @@
 FROM debian:latest
 
-EXPOSE 25565
-
 RUN apt-get update && apt-get upgrade
 RUN apt-get install aptitude curl
 RUN aptitude install default-jre
+
+EXPOSE 25565
 
 RUN mkdir minecraft
 RUN cd minecraft
