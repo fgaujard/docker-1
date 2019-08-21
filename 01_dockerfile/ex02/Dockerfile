@@ -1,14 +1,8 @@
-FROM ruby
+FROM ft-rails:on-build
 
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install sqlite3
-RUN gem install rails
+EXPOSE 3000
+CMD [ "rails" , "s", "-b", "0.0.0.0", "-p", "3000"]
 
-ONBUILD EXPOSE 3000
+# docker build -t ex02 .
 
-ONBUILD COPY . /opt/app
-ONBUILD WORKDIR /opt/app
-
-ONBUILD RUN bundle install
-
-ONBUILD RUN rails db:migrate && rails db:seed
+# docker run -p 3000:3000 ex02

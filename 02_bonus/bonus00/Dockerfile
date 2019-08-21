@@ -9,3 +9,7 @@ RUN curl https://raw.githubusercontent.com/reversTeam/Sublivim/master/installer.
 RUN git clone https://github.com/fgaujard/get_next_line.git
 
 ENTRYPOINT [ "zsh" ]
+
+#docker build -t name:WorkStation ./
+
+#docker run -it --name WorkStation

@@ -1,8 +1,8 @@
 FROM debian:latest
 
-RUN apt-get update && apt-get upgrade
-RUN apt-get install aptitude curl
-RUN aptitude install default-jre
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install aptitude curl -y
+RUN aptitude install default-jre -y
 
 EXPOSE 25565
 
@@ -16,6 +16,6 @@ RUN echo "eula=true" > eula.txt
 CMD java -Xmx1024M -Xms1024M -jar server.jar nogui
 
 #build it
-#docker build -t name:Minecraft
+#docker build -t name:Minecraft ./
 #run it
 #docker run -d -p 25565:25565 name:Minecraft

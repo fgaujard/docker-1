@@ -1,39 +1,19 @@
-FROM debian
 
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu:16.04
 
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install git wget gcc mysql-server -y
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y ca-certificates openssh-server wget postfix
 
-EXPOSE 3000
+RUN wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh && chmod 777 script.deb.sh && ./script.deb.sh && apt-get install -y gitlab-ce
 
-RUN service mysql start && mysql -uroot -e "create database gogs"
+RUN apt update && apt install -y tzdata && \
+  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN adduser --disabled-login --gecos 'Gogs' git && su - git
-USER git
+EXPOSE 443 80 22
 
-RUN mkdir -p /home/git/local
-WORKDIR /home/git
+ENTRYPOINT (/opt/gitlab/embedded/bin/runsvdir-start &) && gitlab-ctl reconfigure && tail -f /dev/null
 
-RUN wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz && tar -C /home/git/local -xvzf go1.9.1.linux-amd64.tar.gz && rm -rf go1.9.1.linux-amd64.tar.gz
+# docker build -t ex03 .
 
-ENV GOROOT=/home/git/local/go
-ENV GOPATH=/home/git/go
-ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
-RUN go get -u github.com/gogits/gogs
-RUN go get -u -tags "sqlite" github.com/gogits/gogs
-
-WORKDIR $GOPATH/src/github.com/gogits/gogs
-ENV USER=git
-
-RUN go build
-RUN go build -tags "sqlite"
-
-USER root
-
-CMD service mysql start && ./gogs web
-
-#docker build -t name:wdtfs ./
-
-#docker run -it --rm -p 3000:3000 name:wdtfs
+# docker run -it --rm -p 8080:80 -p 8022:22 -p 8443:443 --privileged ex03
