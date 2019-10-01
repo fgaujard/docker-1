@@ -10,6 +10,6 @@ RUN git clone https://github.com/fgaujard/get_next_line.git
 
 ENTRYPOINT [ "zsh" ]
 
-#docker build -t name:WorkStation ./
+#docker build -t work ./
 
-#docker run -it --name WorkStation
+#docker run -it --name work

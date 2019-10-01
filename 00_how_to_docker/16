@@ -1,1 +1,1 @@
-docker logs 'machine_name'
+docker logs -f 'machine_name'

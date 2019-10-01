@@ -11,5 +11,5 @@ RUN make
 
 CMD ./src/nyancat
 
-#docker build -t name:nyancat ./
-#docker run -it name:nyancat
+#docker build -t nyancat ./
+#docker run -it nyancat
