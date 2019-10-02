@@ -8,4 +8,7 @@ RUN apk update && apk upgrade
 RUN apk add vim
 
 #run vim
-RUN vim
+CMD vim
+
+#docker build -t ex01 ./
+#docker run -it ex01
