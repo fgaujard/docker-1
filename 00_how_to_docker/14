@@ -1,3 +1,3 @@
-docker run -d --name lair -p 8080:80 --volumes-from spawning-pool wordpress
+docker run -d --name lair -p 8080:80 --limk spawning-pool:mysql wordpress
 
 #"docker inspect lair" for verify

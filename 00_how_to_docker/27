@@ -1,1 +1,1 @@
-docker service logs -t engineering-bay -f
+docker service logs -f $(docker service ps -f "name=engineering-bay.1" -f "desired-state=running" engineering-bay --quiet)
